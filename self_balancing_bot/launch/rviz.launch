@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <param name = "robot_description" command = "$(find xacro)/xacro --inorder '$(find self_balancing_bot)/urdf/robot.urdf.xacro'"/>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+  </node>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="False"/>
+  </node>
+
+
+  <node pkg="rviz" type="rviz" name="rviz" ></node>
+
+ 
+ <!--<node pkg="map_server" name="map_server" type="map_server" args="$(find bot_description)/my_map.yaml" />-->
+
+</launch>

@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding ="UTF-8"?>
+<launch>
+	<arg name = "x" default ="0.0"/>
+	<arg name = "y" default ="0.0"/>
+	<arg name = "z" default ="0.0"/>
+
+	<arg name = "robot_name" default = ""/>
+	<param name = "robot_description" command = "$(find xacro)/xacro --inorder '$(find self_balancing_bot)/urdf/robot.urdf.xacro'"/>
+	<node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model bot -x $(arg x) -y $(arg y) -z $(arg z)" />
+	<node pkg= "self_balancing_bot" type = "SelfBalance.py" name = "SelfBalance" output= "screen" />
+	<node name = "rqt_plot" pkg ="rqt_plot" type ="rqt_plot" args ="/yaw/data" />
+	<node name = "rqt_pub" pkg ="rqt_ez_publisher" type ="rqt_ez_publisher" args ="--slider-file $(find self_balancing_bot)/rqt_pub_setting/setting.yaml" />
+</launch>
